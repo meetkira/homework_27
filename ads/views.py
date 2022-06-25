@@ -92,11 +92,8 @@ class AdDetailView(DetailView):
     model = Ad
 
     def get(self, request, *args, **kwargs):
-        try:
-            super().get(request, *args, **kwargs)
-            self.object = self.get_object()
-        except Exception:
-            return HttpResponse("Not found", status=404)
+        super().get(request, *args, **kwargs)
+        self.object = self.get_object()
 
         return JsonResponse({
             "id": self.object.id,
@@ -136,15 +133,14 @@ class CatView(View):
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=403)
 
+
 class CatDetailView(DetailView):
     model = Category
 
     def get(self, request, *args, **kwargs):
-        try:
-            super().get(request, *args, **kwargs)
-            self.object = self.get_object()
-        except Exception:
-            return HttpResponse("Not found", status=404)
+        # try:
+        super().get(request, *args, **kwargs)
+        self.object = self.get_object()
 
         return JsonResponse({
             "id": self.object.id,
