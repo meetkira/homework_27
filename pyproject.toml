@@ -7,6 +7,7 @@ authors = ["Кристина Ратник <kristi.2001@yandex.ru>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^4.0.5"
+pandas = "^1.4.3"
 
 [tool.poetry.dev-dependencies]
 
