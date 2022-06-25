@@ -138,7 +138,6 @@ class CatDetailView(DetailView):
     model = Category
 
     def get(self, request, *args, **kwargs):
-        # try:
         super().get(request, *args, **kwargs)
         self.object = self.get_object()
 
