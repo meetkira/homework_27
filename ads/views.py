@@ -135,3 +135,18 @@ class CatView(View):
             }, safe=False, status=200)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=403)
+
+class CatDetailView(DetailView):
+    model = Category
+
+    def get(self, request, *args, **kwargs):
+        try:
+            super().get(request, *args, **kwargs)
+            self.object = self.get_object()
+        except Exception:
+            return HttpResponse("Not found", status=404)
+
+        return JsonResponse({
+            "id": self.object.id,
+            "name": self.object.name,
+        })
