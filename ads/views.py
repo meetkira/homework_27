@@ -7,6 +7,7 @@ from django.http import JsonResponse, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import DetailView
 
 from ads.models import Ad, Category
 
@@ -87,3 +88,21 @@ class AdView(View):
             return JsonResponse({"error": str(e)}, status=403)
 
 
+class AdDetailView(DetailView):
+    model = Ad
+
+    def get(self, request, *args, **kwargs):
+        try:
+            super().get(request, *args, **kwargs)
+            self.object = self.get_object()
+        except Exception:
+            return HttpResponse("Not found", status=404)
+
+        return JsonResponse({
+            "id": self.object.id,
+            "name": self.object.name,
+            "price": self.object.price,
+            "description": self.object.description,
+            "address": self.object.address,
+            "is_published": self.object.is_published,
+        })
