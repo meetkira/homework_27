@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.index),
     path('ad/', views.AdView.as_view()),
     path("ad/<int:pk>/", views.AdDetailView.as_view()),
+    path('cat/', views.CatView.as_view()),
 ]

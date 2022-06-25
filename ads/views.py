@@ -106,3 +106,32 @@ class AdDetailView(DetailView):
             "address": self.object.address,
             "is_published": self.object.is_published,
         })
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class CatView(View):
+    def get(self, request):
+        cats = Category.objects.all()
+        responce = []
+        for cat in cats:
+            responce.append({
+                "id": cat.id,
+                "name": cat.name,
+            })
+
+        return JsonResponse(responce, safe=False)
+
+    def post(self, request):
+        cat_data = json.loads(request.body)
+        try:
+            cat = Category()
+            cat.name = cat_data["name"]
+
+            cat.save()
+
+            return JsonResponse({
+                "id": cat.id,
+                "name": cat.name,
+            }, safe=False, status=200)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=403)
