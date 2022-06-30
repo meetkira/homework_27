@@ -70,9 +70,9 @@ class AdView(View):
             ad.name = ad_data["name"]
             ad.author = ad_data["author"]
             ad.description = ad_data.get("description", None)
-            ad.price = int(ad_data["price"])
+            ad.price = ad_data["price"]
             ad.address = ad_data["address"]
-            ad.is_published = bool(ad_data["is_published"])
+            ad.is_published = ad_data["is_published"]
 
             ad.save()
 
